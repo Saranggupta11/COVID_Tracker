@@ -310,28 +310,34 @@ nav ul li a:hover{
     font-weight: 600;
     font-family: sans-serif;
 }
+#yourlocation{
+    background: linear-gradient(180deg,#F5ABC9,#FFE5E2); 
+    opacity: 0;
+}
 #yourlocation .container h1{
     color:white;
     background: #867AE9;
-    padding-left: 5px;
     font-family: sans-serif;
     padding: 10px 10px 10px 30px;
-    opacity: 0;
+    opacity: 1;
 }
 
 
 #locationcoviddata{
    position: relative;
-   margin: 0 0 20px 60px;
    display: inline-block;
    box-shadow: 0 10px 15px rgba(0,0,0,0.1); 
    background: linear-gradient(90deg,#FFC93C,#FFC947);
    width: 300px;
-   height: 250px;
+   height: 310px;
    border-radius: 10px;
    opacity: 0;
 }
-#locationcoviddata h2{
+#districtcontainer{
+    text-align: center;
+    padding-bottom: 20px;
+}
+#locationcoviddata h1{
     text-align: center;
     padding: 5px 0 5px 0;
     font-family: sans-serif;
@@ -343,6 +349,7 @@ nav ul li a:hover{
     padding: 0 0 0 10px;
     line-height: 30px;
     color: #0061a8;
+    font-size: 20px;
 
 }
 #locationcoviddata .red{
@@ -362,7 +369,7 @@ nav ul li a:hover{
     float: left;
     width: 350px;
     border-radius: 15px;
-    height: 160px;
+    height: 170px;
     margin: 70px 50px 0 70px;
     background:orange;
     overflow: hidden;
@@ -378,17 +385,25 @@ nav ul li a:hover{
     font-family: sans-serif;
 }
 
-@media(max-width:1200px)
-{
-    header{
-        margin: 20px;
-    }
+.locationdiv .container{
+    position: relative;
+    box-sizing: border-box;
+    width: 1500px;
+
 }
-@media(max-width:768px)
-{
-    .menu-toggle{
-        display: block;
-        width: 40px;
-        height: 40px;
-    }
+#districtalert{
+    color: white;
+    height: 65px;
+    box-sizing: border-box;
+    padding: 10px 5px 0 5px;
+    border-radius: 0 0 10px 10px;
+    font-family: sans-serif;
+}
+
+#footerdiv{
+    height: 50px;
+    text-align: center;
+    background-color: #262626;
+    color: #dddddd;
+    padding-top: 10px;
 }
