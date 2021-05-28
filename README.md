@@ -1,4 +1,5 @@
 # COVID-19 Tracker
+## Link to the website: https://saranggupta11.github.io/COVID_Tracker/
 ### NAME: SARANG GUPTA
 ### GROUP NO.6
 ### Milestones Achieved
