@@ -69,11 +69,8 @@ function displayCountryData() {
     console.log(fetchedData)
     let str = document.getElementById('countrytext').value
     let final = str.toUpperCase();
-    let invalid=0;
-    console.log(final)
     fetchedData.forEach(function (element) {
         if (element['Country_text'].toUpperCase() == final) {
-            invalid=1;
             console.log(element['Country_text'].toUpperCase())
             let alertIndex = fetchedData.indexOf(element)
             let alertcard = document.getElementById('cardalert')
@@ -85,6 +82,7 @@ function displayCountryData() {
             let totalcase = document.getElementById('countrytotalc')
             let totaldeath = document.getElementById('countrytotald')
             let totalrecovered = document.getElementById('countrytotalr')
+            
             cont.innerHTML = element['Country_text']
             totalcase.innerHTML = "Total Cases: " + element['Total Cases_text']
             activeCase.innerHTML = "Active Cases: " + element['Active Cases_text']
@@ -115,9 +113,7 @@ function displayCountryData() {
         }
        
     })
-    if(invalid==0){
-        console.log('Please Enter a Valid Country Name');
-    }
+    
    
 }
 //event lister for clicking on search button to get data of the country entered by the user
@@ -190,12 +186,12 @@ const successCallback = (position) => {
     reverseGeocoding(latitude, longitude)//calling reverseGeoding function
 }
 const errorCallback = (error) => {
-    console.log(error);
+    alert(error);
 }
 navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
 //this function takes latitude and longitude as parameter and requests the api to get our current location 
 function reverseGeocoding(latitude, longitude) {
-    fetch(`http://api.positionstack.com/v1/reverse?access_key=2ee46b7a5cf6f35051b853a6cc025d2a&query=${latitude},${longitude}`)
+    fetch(`https://us1.locationiq.com/v1/reverse.php?key=pk.0ff7930fdd8dc25309db2103845557f9&lat=${latitude}&lon=${longitude}&format=json`)
         .then(res => res.json())
         .then(response => {
             let locah1 = document.getElementById('locationh1')
@@ -205,9 +201,9 @@ function reverseGeocoding(latitude, longitude) {
             let locationbg = document.getElementById('yourlocation')
             let districtalert = document.getElementById('districtalert')
             locah1.innerHTML = 'Your Current Location is: '
-            locacont.innerHTML = 'Country: ' + response.data[0].country
-            lostate.innerHTML = 'State: ' + response.data[0].region
-            locadist.innerHTML = 'District: ' + response.data[0].county
+            locacont.innerHTML = 'Country: ' + response.address.country
+            lostate.innerHTML = 'State: ' + response.address.state
+            locadist.innerHTML = 'District: ' + response.address.state_district
             locationbg.style.opacity = 1;
             locah1.style.opacity = 1;
             locacont.style.opacity = 1;
@@ -223,19 +219,19 @@ function reverseGeocoding(latitude, longitude) {
             let locadata7 = document.getElementById('locationcoviddata7')
             let locadata8 = document.getElementById('locationcoviddata8')
             locabox.style.opacity = 1;
-            locadata1.innerHTML = response.data[0].county
-            locadata2.innerHTML = "Active Cases: " + indiaData[response.data[0].region].district[response.data[0].county].active
-            locadata3.innerHTML = "Total Confirmed: " + indiaData[response.data[0].region].district[response.data[0].county].confirmed
-            locadata4.innerHTML = "Total Deaths: " + indiaData[response.data[0].region].district[response.data[0].county].deceased
-            locadata5.innerHTML = "Total Recovered: " + indiaData[response.data[0].region].district[response.data[0].county].recovered
-            locadata6.innerHTML = "New Confirmed: " + indiaData[response.data[0].region].district[response.data[0].county].delta.confirmed
-            locadata7.innerHTML = "New Deaths: " + indiaData[response.data[0].region].district[response.data[0].county].delta.deceased
-            locadata8.innerHTML = "New Recovered: " + indiaData[response.data[0].region].district[response.data[0].county].delta.recovered
-            if (indiaData[response.data[0].region].district[response.data[0].county].active > 1000) {
+            locadata1.innerHTML = response.address.state_district
+            locadata2.innerHTML = "Active Cases: " + indiaData[response.address.state].district[response.address.state_district].active
+            locadata3.innerHTML = "Total Confirmed: " + indiaData[response.address.state].district[response.address.state_district].confirmed
+            locadata4.innerHTML = "Total Deaths: " + indiaData[response.address.state].district[response.address.state_district].deceased
+            locadata5.innerHTML = "Total Recovered: " + indiaData[response.address.state].district[response.address.state_district].recovered
+            locadata6.innerHTML = "New Confirmed: " + indiaData[response.address.state].district[response.address.state_district].delta.confirmed
+            locadata7.innerHTML = "New Deaths: " + indiaData[response.address.state].district[response.address.state_district].delta.deceased
+            locadata8.innerHTML = "New Recovered: " + indiaData[response.address.state].district[response.address.state_district].delta.recovered
+            if (indiaData[response.address.state].district[response.address.state_district].active > 1000) {
                 districtalert.innerHTML = 'You are in HIGH Risk zone';
                 districtalert.style.backgroundColor = 'red';
             }
-            else if (indiaData[response.data[0].region].district[response.data[0].county].active > 500) {
+            else if (indiaData[response.address.state].district[response.address.state_district].active > 500) {
                 districtalert.innerHTML = 'You are in MODERATE Risk zone';
                 districtalert.style.backgroundColor = 'orange';
             }
